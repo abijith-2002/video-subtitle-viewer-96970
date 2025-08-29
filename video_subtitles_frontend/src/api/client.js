@@ -51,8 +51,12 @@ export async function fetchVideos({ q } = {}) {
    * Fetch list of videos. Optional search query "q".
    * Returns: Array<VideoListItem>
    */
-  const qs = q ? `?q=${encodeURIComponent(q)}` : '';
-  const res = await fetch(`${BACKEND_URL}/videos${qs}`, { method: 'GET' });
+  const params = new URLSearchParams();
+  if (q) params.set('q', q);
+  // Add vids_dir parameter required by backend
+  params.set('vids_dir', '/videos');
+  const qs = params.toString();
+  const res = await fetch(`${BACKEND_URL}/videos${qs ? '?' + qs : ''}`, { method: 'GET' });
   return handleJsonResponse(res);
 }
 
@@ -62,7 +66,11 @@ export async function fetchVideo(videoId) {
    * Fetch a single video's details by ID.
    * Returns: VideoOut
    */
-  const res = await fetch(`${BACKEND_URL}/videos/${encodeURIComponent(videoId)}`, { method: 'GET' });
+  const params = new URLSearchParams({ vids_dir: '/videos' });
+  const res = await fetch(
+    `${BACKEND_URL}/videos/${encodeURIComponent(videoId)}?${params.toString()}`,
+    { method: 'GET' }
+  );
   return handleJsonResponse(res);
 }
 
