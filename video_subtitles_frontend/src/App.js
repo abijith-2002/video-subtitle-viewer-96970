@@ -31,7 +31,7 @@ export function Header({ theme, onToggleTheme }) {
       </div>
       <div className="header-right">
         <button
-          className="btn"
+          className="btn btn-secondary"
           onClick={onToggleTheme}
           aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           title="Toggle theme"
@@ -253,7 +253,7 @@ export function UploadPanel({ onUploaded }) {
             <input className="input small" value={sLang} onChange={(e) => setSLang(e.target.value)} placeholder="en" />
           </div>
           <div className="form-row">
-            <button className="btn" type="submit" disabled={busy}>
+            <button className="btn btn-primary" type="submit" disabled={busy}>
               {busy ? 'Uploading…' : 'Upload'}
             </button>
           </div>
